@@ -1,11 +1,11 @@
-from django.urls import path
-from rest_framework.views import APIView
-from rest_framework.response import Response
+from django.urls import path, include
+from rest_framework.routers import DefaultRouter
+from .views import ListingViewSet, BookingViewSet
 
-class TestView(APIView):
-    def get(self, request):
-        return Response({"message": "API is working!"})
+router = DefaultRouter()
+router.register(r'listings', ListingViewSet)
+router.register(r'bookings', BookingViewSet)
 
 urlpatterns = [
-    path('test/', TestView.as_view()),
+    path('api/', include(router.urls)),
 ]
